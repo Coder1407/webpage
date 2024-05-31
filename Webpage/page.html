@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <title>Login</title>
+        <script>
+            function test() {
+                alert("Hello");
+            }
+            function login() {
+                let name = document.login["username"].value;
+                let pass = document.login["password"].value;
+                // alert(name+" "+pass);
+                let xml = new XMLHttpRequest();
+                xml.open("POST", "127.0.0.1:8080", true);
+                xml.send("LOGIN>"+"username:"+name+"\npassword:"+pass);
+
+                xml.onload = () => {
+                    if(xml.readyState === xml.DONE) {
+                        if(xml.status == 200) {
+                            if(xml.responseText == "voted") {
+                                alert("You have already voted!");
+                            }
+                            else {
+                                location.replace("http://192.168.29.23:8080/");
+                            }
+                        }
+                    }
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Login page</h1>
+        <div>
+            <form name="login" action="Javascript:login()" accept-charset="UTF-8">
+                <label for="username">User name:</label>
+                <input type="text" id="username" name="username"><br>
+                <label for="password">Password :</label>
+                <input type="password" id="password" name="password"><br>
+                <input type="submit" value="submit"><br>
+            </form>
+        </div>
+    </body>
+</html>
